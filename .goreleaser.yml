@@ -24,7 +24,7 @@ archive:
 brew:
   github:
     owner: 4d63
-    name: homebrew-tap
+    name: homebrew-githubcloneall
   commit_author:
     name: Leigh McCulloch
     email: leigh@mcchouse.com
