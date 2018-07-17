@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
@@ -27,16 +29,21 @@ func main() {
 		return
 	}
 
-	resp, err := http.Get("https://api.github.com/user/" + *username + "/repos?per_page=200")
+	resp, err := http.Get("https://api.github.com/users/" + *username + "/repos?per_page=200")
 	if err != nil {
 		fmt.Printf("Error: %s\n", err)
 		return
 	}
-	dec := json.NewDecoder(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Printf("Error: %s\n", err)
+		return
+	}
+	dec := json.NewDecoder(bytes.NewReader(body))
 	repos := []Repo{}
 	err = dec.Decode(&repos)
 	if err != nil {
-		fmt.Printf("Error: %s\n", err)
+		fmt.Printf("Error: %s\n%s\n", err, string(body))
 		return
 	}
 
