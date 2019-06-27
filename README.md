@@ -23,9 +23,15 @@ go get 4d63.com/githubcloneall
 ## Usage
 
 ```
-Usage: githubcloneall -u username
+Usage: githubcloneall -u username -d dir -token TOKEN -type orgs
 
+  -d string
+        Output directory
   -h    Print help
+  -token string
+        Github personal access token or oauth token
+  -type string
+        github type (users, orgs) (default "users")
   -u string
         GitHub username
 ```
